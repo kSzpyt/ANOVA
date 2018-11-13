@@ -55,16 +55,47 @@ mean(a < 0.05)
 mean(b < 0.05)
 
 library(psych)
-describeBy(BWT, RACE)
-
+#describeBy(BWT, RACE)
+describeBy(BWT, FTV)
 
 
 bartlett.test(BWT ~ RACE)
 bartlett.test(BWT ~ SMOKE)
 
-
 leveneTest(BWT, as.factor(RACE))
 leveneTest(BWT, as.factor(SMOKE))
+#oba testy nie wskazują aby wariancje w grupach były istotnie 
 
-fit <- aov(BWT ~ RACE + SMOKE, data)
-summary(fit)
+data$RACE <- as.factor(data$RACE)
+data$SMOKE <- as.factor(data$SMOKE)
+
+fit <- aov(BWT ~ RACE * SMOKE, data)
+fit_s <- summary(fit)
+
+str(fit)
+par(mfrow = c(2, 2))
+plot(fit)
+
+#nie ma interakcji pomiędzy zmiennymi 
+interaction.plot(RACE, SMOKE, BWT)
+
+
+
+TukeyHSD(fit)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
