@@ -84,7 +84,7 @@ interaction.plot(RACE, SMOKE, BWT)
 TukeyHSD(fit)
 
 
-
+tapply(BWT, SMOKE, shapiro.test)
 
 
 
